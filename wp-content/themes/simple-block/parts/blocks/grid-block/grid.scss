@@ -1,0 +1,16 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-grid-block.ci-block {
+	position: relative;
+	.column-wrp {
+		&.ci-has-background {
+			padding: 3rem;
+			border-radius: 1rem;
+			overflow: hidden;
+			height: 100%;
+			@media screen and (max-width: 769px) {
+				padding: 2rem;
+			}
+		}
+	}
+}

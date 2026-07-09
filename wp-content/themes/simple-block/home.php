@@ -25,6 +25,7 @@
 					</div>
 				</div>
 			</section>
+
 			<section class="ci-query-posts-block ci-block section-container">
 				<div class="container">
 					<?php if ( have_posts() ) : ?>
@@ -55,6 +56,14 @@
 											<a class="btn" aria-label="Link to the <?php echo esc_html( get_the_title() ); ?>" href="<?php echo esc_url( get_permalink() ); ?>">Learn More</a>
 										</div>
 									</div>
+								</div>
+								<div class="uk-width-1-3@l uk-width-1-2@m animation-fade-item">
+									<?php get_template_part('components/cards/card/card', null, [
+												'title' => 'test',
+												'content'  => 'test',
+												'label' => 'test'
+											]);
+									?>
 								</div>
 							<?php endwhile; ?>
 						</div>

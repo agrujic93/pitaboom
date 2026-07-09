@@ -225,6 +225,85 @@ function ag_uikit_frontend() {
 }
 add_action( 'init', 'ag_uikit_frontend', 1 );
 
+
+// Include GSAP animations library and styles
+function ag_enqueue_gsap_animations() {
+	// Enqueue GSAP library from local theme assets.
+	$gsap_js_path = get_stylesheet_directory() . '/assets/js/vendor/gsap.min.js';
+	if ( file_exists( $gsap_js_path ) ) {
+		wp_enqueue_script(
+			'gsap-lib',
+			get_stylesheet_directory_uri() . '/assets/js/vendor/gsap.min.js',
+			array(),
+			filemtime( $gsap_js_path )
+		);
+	}
+
+	// Enqueue ScrollTrigger plugin from local theme assets.
+	$scroll_trigger_js_path = get_stylesheet_directory() . '/assets/js/vendor/ScrollTrigger.min.js';
+	if ( file_exists( $scroll_trigger_js_path ) ) {
+		wp_enqueue_script(
+			'gsap-scroll-trigger',
+			get_stylesheet_directory_uri() . '/assets/js/vendor/ScrollTrigger.min.js',
+			array( 'gsap-lib' ),
+			filemtime( $scroll_trigger_js_path )
+		);
+	}
+
+	// Enqueue Flip plugin from local theme assets.
+	$flip_js_path = get_stylesheet_directory() . '/assets/js/vendor/Flip.min.js';
+	if ( file_exists( $flip_js_path ) ) {
+		wp_enqueue_script(
+			'gsap-flip',
+			get_stylesheet_directory_uri() . '/assets/js/vendor/Flip.min.js',
+			array( 'gsap-lib' ),
+			filemtime( $flip_js_path )
+		);
+	}
+
+	// Enqueue ScrollSmoother plugin from local theme assets.
+	$scroll_smoother_js_path = get_stylesheet_directory() . '/assets/js/vendor/ScrollSmoother.min.js';
+	if ( file_exists( $scroll_smoother_js_path ) ) {
+		wp_enqueue_script(
+			'gsap-scroll-smoother',
+			get_stylesheet_directory_uri() . '/assets/js/vendor/ScrollSmoother.min.js',
+			array( 'gsap-lib', 'gsap-scroll-trigger' ),
+			filemtime( $scroll_smoother_js_path )
+		);
+	}
+
+	// Enqueue SplitType plugin from local theme assets.
+	$split_type_js_path = get_stylesheet_directory() . '/assets/js/vendor/split-type.min.js';
+	if ( file_exists( $split_type_js_path ) ) {
+		wp_enqueue_script(
+			'split-type',
+			get_stylesheet_directory_uri() . '/assets/js/vendor/split-type.min.js',
+			array(),
+			filemtime( $split_type_js_path )
+		);
+	}
+
+	// // Enqueue custom animations script
+	// $animations_js_path = get_stylesheet_directory() . '/assets/js/animations.js';
+	// wp_enqueue_script(
+	// 	'animations-js',
+	// 	get_stylesheet_directory_uri() . '/assets/js/animations.js',
+	// 	array( 'gsap-lib', 'gsap-scroll-trigger', 'gsap-scroll-smoother', 'split-type' ),
+	// 	file_exists( $animations_js_path ) ? filemtime( $animations_js_path ) : '1.0.0',
+	// 	array( 'strategy' => 'defer' )
+	// );
+
+	// // Enqueue animations CSS
+	// $animations_css_path = get_stylesheet_directory() . '/assets/css/animations.css';
+	// wp_enqueue_style(
+	// 	'animations-css',
+	// 	get_stylesheet_directory_uri() . '/assets/css/animations.css',
+	// 	array(),
+	// 	file_exists( $animations_css_path ) ? filemtime( $animations_css_path ) : '1.0.0'
+	// );
+}
+add_action( 'enqueue_block_assets', 'ag_enqueue_gsap_animations' );
+
 // Include Custom CSS on frontend
 function mytheme_enqueue_block_assets() {
 	// Path to your frontend-custom-style.css file

@@ -1,0 +1,128 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+$border-color: linear-gradient(180deg, #A4551B 0%, #C5A279 100%);
+$border-width: .2rem;
+$background: #1d1d1d;
+$radius: 1.6rem;
+/* =========================================
+	 1. UIKIT GRID & LAYOUT MATCHING
+	 ========================================= */
+.match-images {
+	height: 100%;
+}
+
+/* =========================================
+	 2. MAIN CARD COMPONENT (Flexbox)
+	 ========================================= */
+.custom-card-component {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	border-radius: $radius;
+	position: relative;
+	background-color: $background;
+	z-index: 1;
+	border: .1rem solid #424242;
+	transition: border-color 0.3s ease;
+	&:hover {
+		border-color: transparent;
+	}
+	.custom-card-content {
+		padding: 2rem;
+		.card-title {
+			margin-bottom: 1.2rem!important;
+			font-size: 2.4rem;
+			font-weight: 400;
+			line-height: 1;
+			color: #FFFFFF;
+		}
+		.card-content {
+			font-weight: 1.6rem;
+			color: #959595;
+			margin-bottom: 0px;
+		}
+		.card-label {
+			padding: .8rem 1.2rem;
+			font-size: 1.2rem;
+			font-weight: 400;
+			border-radius: 1.6rem;
+			background: #323232;
+			color: #FFFFFF;
+			width: max-content;
+			margin-bottom: 1.2rem;
+		}
+	}
+	.card-border-draw {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 10;
+		overflow: visible;
+		display: none;
+	}
+
+	.card-border-path {
+		fill: none;
+		stroke-width: 2;
+		stroke-linecap: butt;
+		vector-effect: non-scaling-stroke;
+	}
+
+	/* Force the image area to stretch ONLY if there is empty space */
+	.image-wrapper {
+		min-height: 0; /* Prevents flexbox overflow bugs in Safari */
+		overflow: hidden;
+		position: relative;
+		border-top-left-radius: $radius;
+		border-top-right-radius: $radius;
+		&::after {
+			content: ""; /* Required for pseudo-elements to show up */
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+			pointer-events: none;
+		}
+		img {
+			height: 100%;
+		}
+	}
+
+	.card-link {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 2;
+	}
+
+	@media (max-width: 768px) {
+		&.our-work-card .image-wrapper {
+			aspect-ratio: 4 / 3 !important;
+			height: auto !important;
+			flex-grow: 0;
+		}
+		&.related-work-card .image-wrapper {
+			aspect-ratio: 14 / 9 !important;
+			height: auto !important;
+			flex-grow: 0;
+		}
+	}
+	.custom-card-content {
+		h3.has-animation {
+			transition: color 0.4s ease-in-out;
+		}
+	}
+	&:hover {
+		.custom-card-content {
+			h3.has-animation {
+				color: #78C7C9;
+			}
+		}
+	}
+}

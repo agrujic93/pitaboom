@@ -26,6 +26,12 @@ function blocksCSS() {
 		.pipe(dest('./parts/blocks'));
 }
 
+function componentsCSS() {
+	return src('./components/**/*.scss')
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
+		.pipe(dest('./components'));
+}
+
 function watchFiles() {
 	watch('assets/css/sass/custom/frontend-custom-style.scss', globalFrontCSS);
 	watch('assets/css/sass/custom/backend-custom-style.scss', globalBackCSS);
@@ -33,10 +39,12 @@ function watchFiles() {
 	watch('assets/css/sass/uikit/**/*.scss', uikitCSS);
 	watch('assets/css/sass/custom/_custom-variables.scss', uikitCSS);
 	watch('parts/blocks/**/**.scss', blocksCSS);
+	watch('components/**/**.scss', componentsCSS);
 }
 
 exports.globalFrontCSS = globalFrontCSS;
 exports.globalBackCSS = globalBackCSS;
 exports.uikitCSS = uikitCSS;
 exports.blocksCSS = blocksCSS;
+exports.componentsCSS = componentsCSS;
 exports.watch = watchFiles;

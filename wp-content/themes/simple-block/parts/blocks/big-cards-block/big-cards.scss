@@ -1,0 +1,37 @@
+.ci-big-cards-block {
+	background: black;
+	.ci-big-cards-block-wrp {
+		display: flex;
+		flex-direction: colum;
+		padding: 8rem 0;
+		.title-intro-wrp {
+			margin-bottom: 6rem;
+			width: 100%;
+			.section-title {
+				margin-bottom: 4rem;
+				font-weight: 400;
+				font-size: 3.2rem;
+				line-height: 1;
+				letter-spacing: 40%;
+				color: #FFFFFF;
+			}
+			.intro {
+				color: #959595;
+			}
+		}
+		.big-cards-wrp {
+			--uk-grid-gutter-horizontal: 2rem;
+			--uk-grid-gutter-vertical: 2rem;
+
+			margin-left: -2rem !important;
+
+			> * {
+				padding-left: 2rem !important;
+				padding-top: 2rem !important;
+			}
+		}
+	}
+}
+
+
+

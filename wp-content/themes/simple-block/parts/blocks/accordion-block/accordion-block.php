@@ -42,9 +42,9 @@ else : /* rendering in editor body */
 
 		<div class="container" <?php include __DIR__ . '/../block-parts/animation-block.php'; ?>>
 
-			<?php if (get_field('accordion_intro')): ?>
-				<div class="uk-margin-medium-bottom rm-last-child-margin">
-					<?php echo get_field('accordion_intro'); ?>
+			<?php if (get_field('accordion_title')): ?>
+				<div class="accordion-title">
+					<?php echo get_field('accordion_title'); ?>
 				</div>
 			<?php endif ?>
 

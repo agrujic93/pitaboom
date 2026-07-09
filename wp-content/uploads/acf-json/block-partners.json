@@ -1,13 +1,13 @@
 {
-    "key": "group_6a50005fd4de0",
-    "title": "Block: Accordion",
+    "key": "group_66fd64830f4ae",
+    "title": "Block: Partners",
     "fields": [
         {
-            "key": "field_6a50006013372",
-            "label": "Accordion Title",
-            "name": "accordion_title",
+            "key": "field_66fd6483675e5",
+            "label": "Intro",
+            "name": "partners_intro",
             "aria-label": "",
-            "type": "text",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -17,16 +17,16 @@
                 "id": ""
             },
             "default_value": "",
-            "maxlength": "",
-            "allow_in_bindings": 0,
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "allow_in_bindings": 1,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         },
         {
-            "key": "field_6a50014ac3032",
-            "label": "Accordion",
-            "name": "accordion",
+            "key": "field_66fd64ad675e6",
+            "label": "Partners",
+            "name": "partners",
             "aria-label": "",
             "type": "repeater",
             "instructions": "",
@@ -38,20 +38,19 @@
                 "id": ""
             },
             "layout": "table",
-
             "pagination": 0,
             "min": 0,
             "max": 0,
             "collapsed": "",
-            "button_label": "Add Row",
+            "button_label": "Add Partner",
             "rows_per_page": 20,
             "sub_fields": [
                 {
-                    "key": "field_6a500160c3033",
-                    "label": "Accordion Title",
-                    "name": "accordion_title",
+                    "key": "field_66fd64c4675e7",
+                    "label": "Partner Logo",
+                    "name": "partner_logo",
                     "aria-label": "",
-                    "type": "text",
+                    "type": "image",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -60,20 +59,25 @@
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "maxlength": "",
+                    "return_format": "id",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
                     "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6a50014ac3032"
+                    "preview_size": "thumbnail",
+                    "parent_repeater": "field_66fd64ad675e6"
                 },
                 {
-                    "key": "field_6a50016dc3034",
-                    "label": "Accordion Content",
-                    "name": "accordion_content",
+                    "key": "field_67292dd6d3079",
+                    "label": "Partner Link",
+                    "name": "partner_link",
                     "aria-label": "",
-                    "type": "textarea",
+                    "type": "url",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -83,12 +87,9 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "maxlength": "",
                     "allow_in_bindings": 0,
-                    "rows": "",
                     "placeholder": "",
-                    "new_lines": "",
-                    "parent_repeater": "field_6a50014ac3032"
+                    "parent_repeater": "field_66fd64ad675e6"
                 }
             ]
         }
@@ -98,7 +99,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/accordion-block"
+                "value": "acf\/partners-block"
             }
         ]
     ],
@@ -111,8 +112,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "display_title": "",
-    "allow_ai_access": false,
-    "ai_description": "",
-    "modified": 1783628232
+    "modified": 1757022411
 }

@@ -774,3 +774,19 @@ function simple_block_add_woocommerce_support() {
 }
 
 add_action( 'after_setup_theme', 'simple_block_add_woocommerce_support' );
+
+
+// ENABLE WORDPRESS EDITOR IN WOOCOMMERCE start
+add_filter( 'use_block_editor_for_post_type', 'activate_gutenberg_product', 10, 2 );
+function activate_gutenberg_product( $can_edit, $post_type ) {
+ if ( $post_type == 'product' ) { $can_edit = true; }
+ return $can_edit;
+}
+
+add_filter( 'woocommerce_taxonomy_args_product_cat', 'enable_taxonomy_rest' );
+add_filter( 'woocommerce_taxonomy_args_product_tag', 'enable_taxonomy_rest' );
+function enable_taxonomy_rest( $args ) {
+    $args['show_in_rest'] = true;
+    return $args;
+}
+// ENABLE WORDPRESS EDITOR IN WOOCOMMERCE end

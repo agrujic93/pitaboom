@@ -15,14 +15,14 @@ html {
 }
 
 :root :where(.is-layout-constrained) > .ci-block:first-child:not(.ci-has-background, .ci-hero-block) {
-	margin-block-start: 10rem;
+	margin-block-start: 8rem;
 	@media screen and (max-width: 769px) {
 		margin-block-start: 4rem;
 	}
 }
 
 :root :where(.is-layout-constrained) > .ci-block:last-child:not(.ci-has-background) {
-	margin-block-end: 10rem;
+	margin-block-end: 8rem;
 	@media screen and (max-width: 769px) {
 		margin-block-end: 4rem;
 	}
@@ -76,13 +76,14 @@ html {
 		margin: 0 0 3rem;
 	}
 	.h1, .h2, .h3, .h4, .h5, .h6 {
-		font-family: $heading-font;
-		font-weight: 500;
+		font-family: $main-font;
+		font-weight: 400;
 		line-height: 1.4;
 		color: $accent-color;
 	}
 	.h1 {
 		font-size: $h1-font-size;
+		font-family: $heading-font;
 	}
 	.h2 {
 		font-size: $h2-font-size;
@@ -132,7 +133,7 @@ html {
 	}
 	input, textarea, select {
 		padding: 1.5rem;
-		background-color: $base-color;
+		// background-color: $base-color;
 		font-size: $p-font-size;
 		font-family: $main-font;
 		border: .1rem solid $base-color;
@@ -248,25 +249,51 @@ html {
 	}
 	.wp-element-button,
 	.wp-block-button__link,
-	.btn {
+	.btn,
+	.btn-secondary {
+		position: relative;
+		z-index: 3;
 		display: inline-block;
-		border-radius: 1rem;
-		padding: 1rem 2rem;
-		border: .2rem solid $accent-2-color;
-		background-color: $accent-2-color;
+		border-radius: 1.6rem;
+		padding: 1.4rem 3.4rem;
+		border: none;
+		letter-spacing: -3%;
+		background: $horizontal-gold-gradient;
 		font-size: $p-font-size;
+		text-transform: uppercase;
 		font-weight: 600;
-		color: #fff;
+		color: $base-color;
 		line-height: 1.3;
 		text-decoration: none;
 		transition: all .3s ease;
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0;
+			opacity: 0;
+			height: 100%;
+			background: linear-gradient(90deg, rgb(164, 84, 26) 0%, rgb(164, 84, 26) 100%);
+			z-index: -1;
+			border-radius: 1.6rem;
+			transition: all .3s ease;
+		}
 		&:hover {
 			text-decoration: none;
-			color: #fff;
+			color: $contrast-color;
+			&:after {
+				width: 100%;
+				opacity: 1;
+			}
 		}
 		&.has-background, &.has-text-color {
 			border-width: 0;
 		}
+	}
+	.btn-secondary {
+		background: $contrast-3-color;
+		color: $contrast-color;
 	}
 	.wp-block-button.is-style-outline {
 		> .wp-block-button__link:not(.has-text-color, .has-background),
@@ -327,8 +354,8 @@ html {
 	}
 
 	section {
-		margin-top: 10rem;
-		margin-bottom: 10rem;
+		margin-top: 16rem;
+		margin-bottom: 16rem;
 		&.small-gap {
 			margin-top: 4rem;
 			margin-bottom: 4rem;
@@ -336,8 +363,8 @@ html {
 		&.ci-has-background {
 			margin-top: 0;
 			margin-bottom: 0;
-			padding-top: 10rem;
-			padding-bottom: 10rem;
+			padding-top: 8rem;
+			padding-bottom: 8rem;
 			&.small-gap {
 				margin-top: 0;
 				margin-bottom: 0;
@@ -346,8 +373,8 @@ html {
 			}
 		}
 		@media screen and (max-width: 769px) {
-			margin-top: 4rem;
-			margin-bottom: 4rem;
+			margin-top: 8rem;
+			margin-bottom: 8rem;
 			&.small-gap {
 				margin-top: 4rem;
 				margin-bottom: 4rem;

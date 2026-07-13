@@ -15,41 +15,6 @@ if ( isset( $block['data']['preview_image_help'] ) ) :    /* rendering in insert
 else : /* Rendering in editor body. */
 	?>
 
-
-	<div class="top-menu">
-		<div class="container">
-			<div class="top-menu-wrp">
-				<div class="contact-informations">
-					<?php
-
-					if( have_rows('phone_numbers', 'option') ):
-
-						while ( have_rows('phone_numbers', 'option') ) : the_row(); ?>
-
-							<a class="phone" href="tel:<?php the_sub_field('phone', 'option'); ?>"><?php the_sub_field('phone', 'option'); ?></a>
-
-						<?php endwhile;
-
-					endif;
-
-					?>
-					<?php if( get_field('email', 'option') ): ?>
-						<a class="email" href="mailto:<?php the_field('email', 'option'); ?>"><?php the_field('email', 'option'); ?></a>
-					<?php endif; ?>
-				</div>
-
-				<?php if( have_rows('social_networks', 'option') ): ?>
-					<div class="social-icons">
-						<?php while( have_rows('social_networks', 'option') ): the_row(); ?>
-							<a target="_blank" aria-label="Link do društvene mreže <?php echo get_sub_field('header_icon', 'option')['alt']; ?>" rel="noopener" href="<?php echo get_sub_field('url', 'option'); ?>">
-								<img alt="<?php echo get_sub_field('header_icon', 'option')['alt']; ?>" src="<?php echo get_sub_field('header_icon', 'option')['url']; ?>">
-							</a>
-						<?php endwhile; ?>
-					</div>
-				<?php endif; ?>
-			</div>
-		</div>
-	</div>
 	<div class="bottom-menu" data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top; cls-active: uk-navbar-sticky;">
 		<div class="container">
 			<div class="bottom-menu-wrp">
@@ -62,8 +27,8 @@ else : /* Rendering in editor body. */
 				<?php endif; ?>
 
 				<div class="navigation-wrp">
-					<?php echo do_blocks( '<!-- wp:navigation {"ref":4,"showSubmenuIcon":false,"overlayMenu":"never"} /-->' ); ?>
-					<div class="search-wrp">
+					<?php echo do_blocks( '<!-- wp:navigation {"ref":6,"showSubmenuIcon":false,"overlayMenu":"never"} /-->' ); ?>
+					<!-- <div class="search-wrp">
 						<a class="uk-navbar-toggle" data-uk-search-icon href="#"></a>
 						<div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
 							<form class="uk-search uk-search-navbar uk-width-1-1" action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
@@ -72,7 +37,7 @@ else : /* Rendering in editor body. */
 								<input class="search-btn" type="submit" alt="Search"/>
 							</form>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 

@@ -5,7 +5,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
 Tested up to: 7.0
-Stable tag: 27.5
+Stable tag: 28.0
 Requires PHP: 7.4
 
 Improve your SEO with real-time feedback, schema, and clear guidance. Upgrade for AI tools, Google Docs integration, and 24/7 support, no hidden fees.
@@ -303,43 +303,42 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Changelog ==
 
-= 27.5 =
+= 28.0 =
 
-Release date: 2026-04-28
+Release date: 2026-07-06
 
-Introduces Yoast SEO Abilities API, allowing AI tools, dashboards, and automated workflows to automatically read SEO, readability, and inclusive language scores from your most recent posts. Read more in the [release post](https://yoa.st/56j). 
+Yoast SEO now works smoothly with Elementor's version 4 release. [Read the full release post here](https://yoa.st/578).
 
 #### Enhancements
 
-* Adds a Yoast ability for retrieving scores for Yoast analyses for recent posts, using the Abilities API.
-* Adds Qatar to the list of available countries for the Semrush related keyphrase suggestions.
+* Improves the compatibility with the atomic editor in Elementor V4.
 
 #### Bugfixes
 
-* Fixes a bug where the AI Generator's "Generate with AI" feature failed after a site's domain was changed, because stale callback URLs remained registered with the Yoast API from the original domain.
+* Fixes a bug where raw `type` and `id` attributes were written on a link instead of `data-type` and `data-id`, when the link was added by selecting a suggestion in the block editor link popover.
 
 #### Other
 
-* Introduces a performance increase when calculating if the SEO optimization is completed for internal links. Props to [@adconecto](https://github.com/adconecto).
-* Removes the schemamap line from the `robots.txt` file.
+* Updates the guzzlehttp/guzzle and guzzlehttp/psr7 dependencies to patched releases that address known security advisories.
 
-= 27.4 =
+= 27.9 =
 
-Release date: 2026-04-14
+Release date: 2026-06-22
 
-Yoast SEO 27.4 adds new tasks to the Task List, improves navigation within the editor, and fixes a bug where tasks were displaying in the wrong language. [Read the full release post here.](https://yoa.st/task-list)  
+Yoast SEO 27.9 brings more enhancements and bugfixes. [Find more information about our software releases and updates here](https://yoa.st/releases).
 
 #### Enhancements
 
-* Adds a "Yoast" tab to the WordPress Plugins screen that groups all installed Yoast plugins when two or more are present. Requires WordPress 7.0+.
-* Enhances the task list with a task about customizing meta descriptions in recent content.
-* Enhances the task list with a task about deleting the "Sample Page".
-* Improves the UX of completing tasks that require users to go to specific part of the post editor, by redirecting them to the exact spot they need to be.
+* Improves the performance of the content analysis by reusing previously built HTML trees across assessor runs, related-keyphrase passes and research calls instead of rebuilding the tree for each.
+* Passes shortcodes to the Insights analysis data for more consistent analysis result across application.
 
 #### Bugfixes
 
-* Fixes a bug where alt text changes made via the inline image editor in How-to and FAQ blocks were not being reflected on the frontend. Props to [@param-chandarana](https://github.com/param-chandarana).
-* Fixes a bug where the task list copies were displayed in the site language instead of the user language.
+* Fixes a bug where the recently modified posts were fetched twice when using the Content Planner.
+
+#### Other
+
+* Adds the web-server family to the server data collected for opt-in tracking.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

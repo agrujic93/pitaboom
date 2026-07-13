@@ -1,0 +1,22 @@
+{
+    "name": "acf/featured-post-block",
+    "title": "Featured post",
+    "description": "A custom Featured post block with image and rich content.",
+    "style": ["file:./featured-post-block.css"],
+    "category": "custom-blocks",
+    "icon": "cover-image",
+    "keywords": ["featured", "post", "content", "image"],
+    "supports": {
+        "align": ["full", "wide"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "featured-post-block.php"
+    },
+    "align": "full"
+}

@@ -30,15 +30,37 @@ wp_enqueue_script( 'component-card-script', get_template_directory_uri() . '/com
 			<?php
 
 			$alt_text = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+			$base64_string = get_post_meta( $image_id, '_lqip_base64', true );
 
+			$attr = array(
+				'class' => 'custom-card-featured-image',
+				'alt'   => $alt_text,
+			);
+
+			if ( $base64_string ) {
+				// 1. Get the real image URL and responsive srcset data
+				$real_src    = wp_get_attachment_image_url( $image_id, 'full-hero-size' );
+				$real_srcset = wp_get_attachment_image_srcset( $image_id, 'full-hero-size' );
+				$real_sizes  = wp_get_attachment_image_sizes( $image_id, 'full-hero-size' );
+
+				// 2. Add our blur class and store the real URLs in data attributes
+				$attr['class']      .= ' lazy-blur';
+				$attr['data-src']    = $real_src;
+				$attr['data-srcset'] = $real_srcset ? $real_srcset : '';
+				$attr['data-sizes']  = $real_sizes ? $real_sizes : '';
+
+				// 3. Override the default HTML output to show the base64 first
+				$attr['src']    = $base64_string; 
+				$attr['srcset'] = ''; // Forces WP not to print the real srcset immediately
+				$attr['sizes']  = ''; 
+			}
+
+			// Print the image
 			echo wp_get_attachment_image(
 				$image_id,
 				'full-hero-size',
 				false,
-				array(
-					'class' => 'custom-card-featured-image',
-					'alt'   => $alt_text
-				)
+				$attr
 			); ?>
 		</div>
 	<?php } ?>

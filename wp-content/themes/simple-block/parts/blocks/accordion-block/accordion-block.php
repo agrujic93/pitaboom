@@ -17,7 +17,7 @@ if ( isset( $block['anchor'] ) ) {
 	$block_id = 'ci-accordion-block-' . $block['id'];
 }
 
-$main_block_class = 'ci-accordion-block ci-block';
+$main_block_class = 'ci-accordion-block ci-block ci-has-background';
 $container_class = 'section-full-width';
 if ( 'wide' == $block['align'] ) {
 	$container_class = 'section-container-wide';

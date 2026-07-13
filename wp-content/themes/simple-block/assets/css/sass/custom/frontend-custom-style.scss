@@ -1166,3 +1166,16 @@ html {
 		}
 	}
 }
+
+.lazy-blur {
+  /* Scale up slightly to hide blurry edges */
+  transform: scale(1.05); 
+  filter: blur(10px);
+  transition: filter 0.5s ease-out, transform 0.5s ease-out;
+  will-change: filter, transform;
+}
+
+.lazy-blur.loaded {
+  transform: scale(1);
+  filter: blur(0);
+}

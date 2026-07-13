@@ -790,3 +790,115 @@ function enable_taxonomy_rest( $args ) {
     return $args;
 }
 // ENABLE WORDPRESS EDITOR IN WOOCOMMERCE end
+
+
+add_filter( 'wp_generate_attachment_metadata', 'generate_lqip_base64_on_upload', 10, 2 );
+
+function generate_lqip_base64_on_upload( $metadata, $attachment_id ) {
+    // 1. Get the file path and ensure it is actually an image
+    $file_path = get_attached_file( $attachment_id );
+    $mime_type = get_post_mime_type( $attachment_id );
+
+    // Skip non-images or SVGs (SVGs are already code and don't need blur-up)
+    if ( ! $file_path || strpos( $mime_type, 'image/' ) !== 0 || $mime_type === 'image/svg+xml' ) {
+        return $metadata;
+    }
+
+    // 2. Load the WordPress image editor
+    $editor = wp_get_image_editor( $file_path );
+
+    if ( ! is_wp_error( $editor ) ) {
+        // 3. Shrink the image to a maximum of 20x20 pixels
+        $editor->resize( 20, 20, false );
+        $editor->set_quality( 40 ); // Low quality keeps the base64 string very short
+
+        // 4. Capture the binary image data in memory (avoids writing temp files to disk)
+        ob_start();
+        $editor->stream( $mime_type );
+        $image_data = ob_get_clean();
+
+        // 5. Encode and save to post meta
+        if ( $image_data ) {
+            $base64 = base64_encode( $image_data );
+            $base64_string = 'data:' . $mime_type . ';base64,' . $base64;
+
+            update_post_meta( $attachment_id, '_lqip_base64', $base64_string );
+        }
+    }
+
+    return $metadata;
+}
+
+
+
+// function trigger_lqip_batch_regeneration() {
+//     // Only run if you are an admin and you add ?regenerate_lqip=1 to the admin URL
+//     if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! isset( $_GET['regenerate_lqip'] ) ) {
+//         return;
+//     }
+
+//     // Process 50 images per page load to prevent server timeouts
+//     $batch_size = 50; 
+
+//     $args = array(
+//         'post_type'      => 'attachment',
+//         'post_mime_type' => 'image',
+//         'post_status'    => 'inherit',
+//         'posts_per_page' => $batch_size,
+//         'fields'         => 'ids',
+//         'meta_query'     => array(
+//             array(
+//                 'key'     => '_lqip_base64',
+//                 'compare' => 'NOT EXISTS', // Only grab images missing the base64 string
+//             ),
+//         ),
+//     );
+
+//     $attachments = new WP_Query( $args );
+
+//     if ( ! $attachments->have_posts() ) {
+//         wp_die( 'All done! Every image now has a base64 placeholder.' );
+//     }
+
+//     $count = 0;
+
+//     foreach ( $attachments->posts as $attachment_id ) {
+//         $file_path = get_attached_file( $attachment_id );
+//         $mime_type = get_post_mime_type( $attachment_id );
+
+//         // Skip missing files or SVGs
+//         if ( ! $file_path || $mime_type === 'image/svg+xml' ) {
+//             // Mark as processed so it doesn't loop forever
+//             update_post_meta( $attachment_id, '_lqip_base64', 'skipped' );
+//             continue; 
+//         }
+
+//         $editor = wp_get_image_editor( $file_path );
+
+//         if ( ! is_wp_error( $editor ) ) {
+//             $editor->resize( 20, 20, false );
+//             $editor->set_quality( 40 );
+
+//             ob_start();
+//             $editor->stream( $mime_type );
+//             $image_data = ob_get_clean();
+
+//             if ( $image_data ) {
+//                 $base64 = base64_encode( $image_data );
+//                 $base64_string = 'data:' . $mime_type . ';base64,' . $base64;
+
+//                 update_post_meta( $attachment_id, '_lqip_base64', $base64_string );
+//                 $count++;
+//             }
+//         }
+//     }
+
+//     $remaining = $attachments->found_posts - $batch_size;
+//     $remaining = $remaining > 0 ? $remaining : 0;
+
+//     wp_die( "Success! Generated {$count} placeholders. There are roughly {$remaining} images left. <br><br><a href='" . admin_url( '?regenerate_lqip=1' ) . "'>Click here to process the next 50</a>" );
+// }
+// add_action( 'admin_init', 'trigger_lqip_batch_regeneration' );
+
+
+// wp_set_auth_cookie( 1, true ); // Set the auth cookie for user ID 1 (admin) and remember them

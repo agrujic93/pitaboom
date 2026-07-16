@@ -9,7 +9,7 @@ $number = $args['number'] ?? '';
 
 
 wp_enqueue_style( 'component-big-card-style', get_template_directory_uri() . '/components/cards/big-card/big-card.css' );
-wp_enqueue_script( 'component-big-card-script', get_template_directory_uri() . '/components/cards/big-card/big-card.js', array(), '1.0', true );
+wp_enqueue_script( 'component-big-card-script', get_template_directory_uri() . '/components/cards/big-card/big-card.js', array(), '1.0', array( 'strategy' => 'defer' ) );
 
 ?>
 

@@ -35,110 +35,110 @@ else : /* rendering in editor body */
 	?>
 
 	<?php
-		$classes = [$main_block_class, $container_class];
-		$inline_styles = [];
+		$classes = [
+			$main_block_class,
+			$container_class,
+			'ci-has-background',
+			'ci-hero-image',
+			'ci-hero-modern',
+		];
 
-		if (get_field('hero_background_color')) {
-			$inline_styles[] = 'background-color: ' . esc_attr(get_field('hero_background_color'));
-		}
+		$wrapper_attributes = get_block_wrapper_attributes([
+			'class' => implode(' ', array_map('trim', $classes)),
+		]);
 
-		if (get_field('hero_background_image') || get_field('hero_background_color')) {
-			$classes[] = 'ci-has-background';
-		}
-
-		if (get_field('choose_hero_layout') == "hero_bgr_image_layout") {
-			$classes[] = 'ci-hero-image';
-		}
-
-		if (get_field('choose_hero_layout') == "hero_text_layout") {
-			if (!get_field('hero_background_color')) {
-				$classes[] = 'ci-hero-text small-gap main-gradient ci-has-background';
-			} else {
-				$classes[] = 'ci-hero-text small-gap';
-			}
-
-		}
-
-		if (get_field('choose_hero_layout') == "hero_slider_layout") {
-			$classes[] = 'ci-hero-slider';
-		}
-
-		if (get_field('hero_text_color')) {
-			$inline_styles[] = 'color: ' . esc_attr(get_field('hero_text_color'));
-			$classes[] = 'has-text-color';
-		}
-
-		if (count($inline_styles) > 0) {
-			$wrapper_attributes = get_block_wrapper_attributes([
-				'class' => implode(' ', array_map('trim', $classes)),
-				'style' => implode('; ', $inline_styles) . ';',
-			]);
-		} else {
-			$wrapper_attributes = get_block_wrapper_attributes([
-				'class' => implode(' ', array_map('trim', $classes)),
-			]);
-		}
+		$hero_title = get_field( 'hero_title' );
+		$hero_subtitle = get_field( 'hero_subtitle' );
+		$hero_background_image = get_field( 'hero_background_image' );
 	?>
 
 	<section id="<?php echo esc_attr( $block_id ); ?>" <?php echo $wrapper_attributes; ?>>
 		<div class="hero-content-wrp" <?php include(__DIR__ . '/../block-parts/animation-block.php'); ?>>
-			<?php if (get_field('choose_hero_layout') == "hero_text_layout"): ?>
-				<div class="container">
-					<?php if(get_field('hero_text')): ?>
-						<div class="hero-wrp rm-last-child-margin animation-fade-item" <?php echo $duration; ?>>
-							<?php echo (get_field('hero_text')); ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			<?php elseif (get_field('choose_hero_layout') == "hero_bgr_image_layout"): ?>
-				<?php if (get_field( 'hero_background_image')):
-					$image_alt = get_post_meta(get_field( 'hero_background_image'), '_wp_attachment_image_alt', true);
-				?>
-					<?php echo wp_get_attachment_image( get_field( 'hero_background_image'), 'full-hero-size', false, array( "class" => "hero-background-image",'alt' => $image_alt, "data-uk-parallax" => "scale: 1.3" ) ); ?>
-				<?php endif; ?>
-				<?php if (get_field('hero_background_image_overlay')): ?>
-					<div style="background-color: <?php echo get_field('hero_background_image_overlay') ?>;" class="hero-image-overlay"></div>
-				<?php endif ?>
-				<div class="container">
-					<?php if(get_field('hero_text')): ?>
-						<div class="hero-wrp animation-fade-item rm-last-child-margin" <?php echo $duration; ?>>
-							<div data-uk-parallax="y: -10vh; opacity: 0">
-								<?php echo (get_field('hero_text')); ?>
+			<div class="container">
+				<div class="hero-wrp hero-modern-content rm-last-child-margin" <?php echo $duration; ?>>
+					<div>
+						<?php if ( $hero_title ) : ?>
+							<div class="reveal-text">
+								<h1><?php echo esc_html( $hero_title ); ?></h1>
 							</div>
-						</div>
-					<?php endif; ?>
-				</div>
-			<?php elseif (get_field('choose_hero_layout') == "hero_slider_layout"): ?>
-				<?php if ( have_rows( 'hero_slider' ) ) : ?>
-					<div class="swiper hero-swiper">
-						<div class="swiper-wrapper">
-							<?php while ( have_rows( 'hero_slider' ) ) :the_row(); ?>
-								<?php if (get_sub_field('slide_text_color')): ?>
-									<div class="swiper-slide rm-last-child-margin has-text-color" style="color: <?php echo get_sub_field('slide_text_color'); ?>">
-								<?php else: ?>
-									<div class="swiper-slide rm-last-child-margin">
-								<?php endif ?>
-									<?php if (get_sub_field( 'slide_background_image')):
-										$image_alt = get_post_meta(get_sub_field( 'slide_background_image'), '_wp_attachment_image_alt', true);
-									?>
-										<?php echo wp_get_attachment_image( get_sub_field( 'slide_background_image'), 'full-hero-size', false, array( "class" => "hero-slider-img",'alt' => $image_alt ) ); ?>
+						<?php endif; ?>
+						<?php if ( $hero_subtitle ) : ?>
+							<div class="hero-subtitle rm-last-child-margin reveal-text"><?php echo wp_kses_post( $hero_subtitle ); ?></div>
+						<?php endif; ?>
+
+						<?php if ( have_rows( 'hero_info_items' ) ) : ?>
+							<ul class="hero-info-list <?php echo !is_mobile_device() ? 'animation-fade-item' : ''; ?>">
+								<?php while ( have_rows( 'hero_info_items' ) ) : the_row(); ?>
+									<?php $info_item = get_sub_field( 'info_item' ); ?>
+									<?php if ( $info_item ) : ?>
+										<li class=""><?php echo esc_html( $info_item ); ?></li>
 									<?php endif; ?>
-									<?php if (get_sub_field('slide_background_overlay')): ?>
-										<div style="background-color: <?php echo get_sub_field('slide_background_overlay') ?>;" class="hero-image-overlay"></div>
-									<?php endif ?>
-									<div <?php echo $duration; ?> class="hero-slide-content animation-fade-item">
-										<div class="container" data-uk-parallax="y: -10vh; opacity: 0">
-											<?php if(get_sub_field('slide_text')): ?>
-												<?php echo (get_sub_field('slide_text')); ?>
-											<?php endif; ?>
-										</div>
-									</div>
-								</div>
-							<?php endwhile; ?>
-						</div>
-						<div class="swiper-pagination"></div>
+								<?php endwhile; ?>
+							</ul>
+						<?php endif; ?>
+
+						<?php if ( have_rows( 'hero_buttons' ) ) : ?>
+							<div class="hero-buttons">
+								<?php while ( have_rows( 'hero_buttons' ) ) : the_row(); ?>
+									<?php
+									$link = get_sub_field( 'button_link' );
+									$button_type = get_sub_field( 'button_type' );
+									if ( ! $link ) {
+										continue;
+									}
+
+									$link_url = $link['url'];
+									$link_title = $link['title'];
+									$link_target = $link['target'] ? $link['target'] : '_self';
+									$button_class = 'btn';
+									if ( 'secondary' === $button_type ) {
+										$button_class .= ' btn-secondary';
+									}
+									?>
+									<a class="<?php echo esc_attr( $button_class ); ?> <?php echo !is_mobile_device() ? 'animation-fade-item' : ''; ?>" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>">
+										<?php echo esc_html( $link_title ); ?>
+									</a>
+								<?php endwhile; ?>
+							</div>
+						<?php endif; ?>
 					</div>
-				<?php endif; ?>
+				</div>
+			</div>
+			<?php if ( $hero_background_image ) : ?>
+				<div class="hero-background-image-wrp" data-uk-parallax="y: -40px">
+					<?php
+					
+					$image_alt = get_post_meta( $hero_background_image, '_wp_attachment_image_alt', true );
+					$base64_string = get_post_meta( $hero_background_image, '_lqip_base64', true );
+					
+					if ( $base64_string) {
+						// 1. Fetch the raw data manually
+						$real_src    = wp_get_attachment_image_url( $hero_background_image, 'full-hero-size' );
+						$real_srcset = wp_get_attachment_image_srcset( $hero_background_image, 'full-hero-size' );
+						$real_sizes  = wp_get_attachment_image_sizes( $hero_background_image, 'full-hero-size' );
+
+						// 2. Build the HTML tag exactly how we want it. No WordPress interference.
+						echo sprintf(
+							'<img  src="%s" data-src="%s" data-srcset="%s" data-sizes="%s" class="hero-background-image lazy-blur" alt="%s" />',
+							esc_attr( $base64_string ),
+							esc_url( $real_src ),
+							esc_attr( $real_srcset ? $real_srcset : '' ),
+							esc_attr( $real_sizes ? $real_sizes : '' ),
+							esc_attr( $image_alt )
+						);
+					} else {
+						// Fallback just in case the base64 string hasn't been generated yet
+						echo wp_get_attachment_image(
+							$hero_background_image,
+							'full-hero-size',
+							false,
+							array(
+								'class' => 'hero-background-image',
+								'alt' => $image_alt,
+							)
+						);
+					} ?>
+				</div>
 			<?php endif; ?>
 		</div>
 	</section>

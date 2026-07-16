@@ -1,0 +1,88 @@
+{
+    "key": "group_6873c7f97cd12",
+    "title": "Block: Featured Post",
+    "fields": [
+        {
+            "key": "field_6873c8022e681",
+            "label": "Featured Image",
+            "name": "featured_post_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Image for the left side of the block.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6873c8102e682",
+            "label": "Content",
+            "name": "featured_post_content",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Content for the right side of the block.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_6873c8252e683",
+            "label": "Button",
+            "name": "featured_post_cta",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Optional CTA button shown under the content.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "allow_in_bindings": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/featured-post-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1783946400
+}

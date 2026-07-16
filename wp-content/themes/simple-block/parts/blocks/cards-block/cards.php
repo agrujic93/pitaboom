@@ -42,11 +42,11 @@ else : /* Rendering in editor body. */
 				<div class="title-intro-wrp">
 					<?php if (get_field('title')): ?>
 						<div class="uk-width-expand">
-							<h2 class="section-title"><?php echo get_field( 'title'); ?></h2>
+							<h2 class="section-title reveal-text"><?php echo get_field( 'title'); ?></h2>
 						</div>
 					<?php endif; ?>
 					<?php if (get_field('intro')): ?>
-						<div class="uk-width-expand rm-last-child-margin intro">
+						<div class="uk-width-expand rm-last-child-margin intro reveal-text">
 							<?php echo get_field( 'intro' ); ?>
 						</div>
 					<?php endif; ?>

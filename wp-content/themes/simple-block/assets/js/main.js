@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
       		}
 		);
     }, {
-      rootMargin: "-300px 0px" 
+      rootMargin: "-150px 0px" 
     });
 
     	lazyImages.forEach(img => imageObserver.observe(img));

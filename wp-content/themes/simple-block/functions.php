@@ -185,7 +185,8 @@ function ag_uikit_scripts() {
 		'uikit-js',
 		get_stylesheet_directory_uri() . '/assets/js/uikit.min.js',
 		array(),
-		file_exists( $uikit_js_path ) ? filemtime( $uikit_js_path ) : '3.21.11'
+		file_exists( $uikit_js_path ) ? filemtime( $uikit_js_path ) : '3.21.11',
+		array( 'strategy' => 'defer' ) // 52 KiB - layout from CSS, JS only needed for interactivity
 	);
 
 	$uikit_icons_js_path = get_stylesheet_directory() . '/assets/js/uikit-icons.min.js';
@@ -226,8 +227,15 @@ function ag_uikit_frontend() {
 add_action( 'init', 'ag_uikit_frontend', 1 );
 
 
+function is_mobile_device() {
+	$user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+	return preg_match('/Android|webOS|iPhone|iPad|iPod/i', $user_agent);
+}
+
+
 // Include GSAP animations library and styles
 function ag_enqueue_gsap_animations() {
+		
 	// Enqueue GSAP library from local theme assets.
 	$gsap_js_path = get_stylesheet_directory() . '/assets/js/vendor/gsap.min.js';
 	if ( file_exists( $gsap_js_path ) ) {
@@ -238,6 +246,9 @@ function ag_enqueue_gsap_animations() {
 			filemtime( $gsap_js_path )
 		);
 	}
+
+	// Skip GSAP entirely on mobile devices - improves performance
+	
 
 	// Enqueue ScrollTrigger plugin from local theme assets.
 	$scroll_trigger_js_path = get_stylesheet_directory() . '/assets/js/vendor/ScrollTrigger.min.js';
@@ -284,23 +295,22 @@ function ag_enqueue_gsap_animations() {
 	}
 
 	// // Enqueue custom animations script
-	// $animations_js_path = get_stylesheet_directory() . '/assets/js/animations.js';
-	// wp_enqueue_script(
-	// 	'animations-js',
-	// 	get_stylesheet_directory_uri() . '/assets/js/animations.js',
-	// 	array( 'gsap-lib', 'gsap-scroll-trigger', 'gsap-scroll-smoother', 'split-type' ),
-	// 	file_exists( $animations_js_path ) ? filemtime( $animations_js_path ) : '1.0.0',
-	// 	array( 'strategy' => 'defer' )
-	// );
+	$animations_js_path = get_stylesheet_directory() . '/assets/js/animations.js';
+	wp_enqueue_script(
+		'animations-js',
+		get_stylesheet_directory_uri() . '/assets/js/animations.js',
+		array( 'gsap-lib', 'gsap-scroll-trigger', 'gsap-scroll-smoother', 'split-type' ),
+		filemtime( $animations_js_path )
+	);
 
 	// // Enqueue animations CSS
-	// $animations_css_path = get_stylesheet_directory() . '/assets/css/animations.css';
-	// wp_enqueue_style(
-	// 	'animations-css',
-	// 	get_stylesheet_directory_uri() . '/assets/css/animations.css',
-	// 	array(),
-	// 	file_exists( $animations_css_path ) ? filemtime( $animations_css_path ) : '1.0.0'
-	// );
+	$animations_css_path = get_stylesheet_directory() . '/assets/css/animations.css';
+	wp_enqueue_style(
+		'animations-css',
+		get_stylesheet_directory_uri() . '/assets/css/animations.css',
+		array(),
+		filemtime( $animations_css_path )
+	);
 }
 add_action( 'enqueue_block_assets', 'ag_enqueue_gsap_animations' );
 
@@ -351,7 +361,7 @@ function ci_register_blocks_styles() {
 		'swiper-style', // Handle for the stylesheet
 		$css_file_url, // URL to the CSS file
 		array(), // Dependencies, if any
-		file_exists( $css_file_path ) ? filemtime( $css_file_path ) : '1.0.0' // Version based on file modification time
+		file_exists( $css_file_path ) ? filemtime( $css_file_path ) : '1.0.0', // Version based on file modification time
 	);
 }
 add_action( 'init', 'ci_register_blocks_styles' );
@@ -370,7 +380,8 @@ function cwp_register_block_script() {
 		'swiper', // Handle for the stylesheet
 		$swiper_file_url, // URL to the CSS file
 		array('jquery'), // Dependencies, if any
-		file_exists( $swiper_file_path ) ? filemtime( $swiper_file_path ) : '1.0.0' // Version based on file modification time
+		file_exists( $swiper_file_path ) ? filemtime( $swiper_file_path ) : '1.0.0', // Version based on file modification time
+		array( 'strategy' => 'defer' )
 	);
 
 	// Absolute path to the swiper file for filemtime
@@ -383,7 +394,8 @@ function cwp_register_block_script() {
 		'hero-slider-js',
 		$hero_slider_url, // URL to the file
 		array('swiper', 'acf'), // Dependencies, if any
-		file_exists( $hero_slider_path ) ? filemtime( $hero_slider_path ) : '1.0.0' // Version based on file modification time
+		file_exists( $hero_slider_path ) ? filemtime( $hero_slider_path ) : '1.0.0', // Version based on file modification time
+		array( 'strategy' => 'defer' )
 	);
 
 	// Absolute path to the swiper file for filemtime
@@ -396,7 +408,8 @@ function cwp_register_block_script() {
 		'testimonials-slider-js',
 		$testimonials_slider_url, // URL to the file
 		array('swiper', 'acf'), // Dependencies, if any
-		file_exists( $testimonials_slider_path ) ? filemtime( $testimonials_slider_path ) : '1.0.0' // Version based on file modification time
+		file_exists( $testimonials_slider_path ) ? filemtime( $testimonials_slider_path ) : '1.0.0', // Version based on file modification time
+		array( 'strategy' => 'defer' )
 	);
 
 	// Absolute path to the swiper file for filemtime
@@ -409,7 +422,8 @@ function cwp_register_block_script() {
 		'partners-slider-js',
 		$partners_slider_url, // URL to the file
 		array('swiper', 'acf'), // Dependencies, if any
-		file_exists( $partners_slider_path ) ? filemtime( $partners_slider_path ) : '1.0.0' // Version based on file modification time
+		file_exists( $partners_slider_path ) ? filemtime( $partners_slider_path ) : '1.0.0', // Version based on file modification time
+		array( 'strategy' => 'defer' )
 	);
 
 
@@ -700,7 +714,35 @@ if ( ! function_exists( 'wysiwyg_style_formats' ) ) {
 					],
 				],
 			),
+			array(
+				'title'	=> __( 'Font Family', 'text_domain' ),
+				'items'	=> [
+					[
+						'title'		=> __( 'Didot', 'text_domain' ),
+						'selector'	=> 'p,a,h1,h2,h3,h4,h5,h6',
+						'classes'	=> 'didot-font'
+					],
+					[
+						'title'		=> __( 'Inter', 'text_domain' ),
+						'selector'	=> 'p,a,h1,h2,h3,h4,h5,h6',
+						'classes'	=> 'inter-font'
+					],
+
+				],
+			),
+			array(
+				'title'	=> __( 'Animation', 'text_domain' ),
+				'items'	=> [
+					[
+						'title'		=> __( 'Reveal Text', 'text_domain' ),
+						'selector'	=> 'p,a,h1,h2,h3,h4,h5,h6',
+						'classes'	=> 'reveal-text'
+					]
+				],
+			)
 		];
+
+
 		$settings['style_formats'] = json_encode( $style_formats );
 		return $settings;
 	}
@@ -759,6 +801,42 @@ function add_google_analytics() { ?>
 	<?php
 }
 add_action('wp_head', 'add_google_analytics');
+
+/**
+ * Preload Fonts
+ */
+function my_custom_theme_preload_fonts() {
+    // List all the font files you want to preload here
+    $fonts = array(
+        'didot/didot-400-normal.otf',
+        'inter/inter-600-normal.woff2',
+        'inter/inter-400-normal.woff2',
+		'inter/inter-300-normal.woff2'
+    );
+
+	//  $fonts = array(
+    //     'didot/didot-400-normal.otf'
+    // );
+
+    // Get the base URL for the fonts directory
+    $font_dir_url = get_template_directory_uri() . '/assets/fonts/';
+
+    // Loop through the array and output a preload tag for each
+    foreach ( $fonts as $font ) {
+        $font_url  = $font_dir_url . $font;
+        $extension = strtolower( pathinfo( $font, PATHINFO_EXTENSION ) );
+        $type_map   = array(
+            'woff2' => 'font/woff2',
+            'woff'  => 'font/woff',
+            'ttf'   => 'font/ttf',
+            'otf'   => 'font/otf',
+        );
+        $font_type = isset( $type_map[ $extension ] ) ? $type_map[ $extension ] : 'font/' . $extension;
+        echo '<link rel="preload" href="' . esc_url( $font_url ) . '" as="font" type="' . esc_attr( $font_type ) . '" crossorigin>' . "\n";
+    }
+}
+add_action( 'wp_head', 'my_custom_theme_preload_fonts', 5 );
+
 
 /**
  * Add WooCommerce Support
@@ -901,4 +979,77 @@ function generate_lqip_base64_on_upload( $metadata, $attachment_id ) {
 // add_action( 'admin_init', 'trigger_lqip_batch_regeneration' );
 
 
-// wp_set_auth_cookie( 1, true ); // Set the auth cookie for user ID 1 (admin) and remember them
+add_filter( 'image_editor_output_format', 'convert_images_to_webp_on_upload' );
+
+function convert_images_to_webp_on_upload( $formats ) {
+    // Convert all JPEGs and PNGs to WebP for generated image sizes
+    $formats['image/jpeg'] = 'image/webp';
+    $formats['image/png']  = 'image/webp';
+    
+    return $formats;
+}
+
+
+
+
+function trigger_full_image_regeneration() {
+    // Only run if you are an admin and add ?regenerate_all_images=1 to the URL
+    if ( ! is_admin() || ! current_user_can( 'manage_options' ) || ! isset( $_GET['regenerate_all_images'] ) ) {
+        return;
+    }
+
+    // Process 10 images per page load to prevent server timeouts!
+    // Generating WebP sizes is heavy work.
+    $batch_size = 10; 
+
+    $args = array(
+        'post_type'      => 'attachment',
+        'post_mime_type' => 'image',
+        'post_status'    => 'inherit',
+        'posts_per_page' => $batch_size,
+        'fields'         => 'ids',
+        'meta_query'     => array(
+            array(
+                'key'     => '_lqip_base64',
+                'compare' => 'NOT EXISTS', // We use the missing base64 string to know which images still need processing
+            ),
+        ),
+    );
+
+    $attachments = new WP_Query( $args );
+
+    if ( ! $attachments->have_posts() ) {
+        wp_die( 'All done! All old images now have WebP versions and base64 placeholders.' );
+    }
+
+    // We must include this core WordPress file to access the image generation functions
+    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
+    $count = 0;
+
+    foreach ( $attachments->posts as $attachment_id ) {
+        $file_path = get_attached_file( $attachment_id );
+
+        // Ensure the file actually exists on the server
+        if ( $file_path && file_exists( $file_path ) ) {
+            
+            // This core WP function does the magic:
+            // 1. It generates the sub-sizes (saving them as WebP due to our earlier filter)
+            // 2. It triggers the base64 script automatically because we hooked into this process earlier!
+            $attach_data = wp_generate_attachment_metadata( $attachment_id, $file_path );
+            wp_update_attachment_metadata( $attachment_id, $attach_data );
+            
+            $count++;
+            
+        } else {
+            // File is missing from disk, skip it so we don't get stuck in an infinite loop
+            update_post_meta( $attachment_id, '_lqip_base64', 'skipped' );
+        }
+    }
+
+    $remaining = $attachments->found_posts - $batch_size;
+    $remaining = $remaining > 0 ? $remaining : 0;
+
+    wp_die( "Success! Regenerated {$count} images into WebP and base64. Roughly {$remaining} left. <br><br><a href='" . admin_url( '?regenerate_all_images=1' ) . "'>Click here to process the next 10</a>" );
+}
+add_action( 'admin_init', 'trigger_full_image_regeneration' );

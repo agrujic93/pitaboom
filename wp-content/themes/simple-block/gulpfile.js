@@ -32,6 +32,12 @@ function componentsCSS() {
 		.pipe(dest('./components'));
 }
 
+function animationsCSS() {
+	return src('./assets/css/sass/custom/animations.scss', { sourcemaps: true })
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
+		.pipe(dest('./assets/css', { sourcemaps: './maps' }));
+}
+
 function watchFiles() {
 	watch('assets/css/sass/custom/frontend-custom-style.scss', globalFrontCSS);
 	watch('assets/css/sass/custom/backend-custom-style.scss', globalBackCSS);
@@ -40,6 +46,7 @@ function watchFiles() {
 	watch('assets/css/sass/custom/_custom-variables.scss', uikitCSS);
 	watch('parts/blocks/**/**.scss', blocksCSS);
 	watch('components/**/**.scss', componentsCSS);
+	watch('assets/css/sass/custom/animations.scss', animationsCSS);
 }
 
 exports.globalFrontCSS = globalFrontCSS;
@@ -47,4 +54,5 @@ exports.globalBackCSS = globalBackCSS;
 exports.uikitCSS = uikitCSS;
 exports.blocksCSS = blocksCSS;
 exports.componentsCSS = componentsCSS;
+exports.animationsCSS = animationsCSS;
 exports.watch = watchFiles;

@@ -1,0 +1,220 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-info-table-block.ci-block {
+	--steps-title-color: #ffffff;
+	--steps-text-color: #d2d2d2;
+	--table-card-bg: rgba(255, 255, 255, 0.05);
+	--table-row-bg: rgba(255, 255, 255, 0.06);
+	--table-row-border: rgba(255, 255, 255, 0.08);
+	--chip-bg: rgba(255, 255, 255, 0.08);
+	--chip-color: #d9d9d9;
+
+	&.ci-no-bottom-margin {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	.info-table-grid {
+		align-items: flex-start;
+	}
+
+	.info-steps-title {
+		margin-bottom: clamp(4rem, 5.556vw, 8rem);
+		text-transform: uppercase;
+        margin-top: 2rem;
+	}
+
+	.info-steps-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: clamp(3rem, 4vw, 5rem);
+	}
+
+	.info-step-item {
+		display: grid;
+		grid-template-columns: 4rem 1fr;
+		gap: 2rem;
+		align-items: start;
+	}
+
+	.info-step-number {
+		color: $contrast-color;
+		font-size: clamp(1.6rem, 1.389vw, 2rem);
+		line-height: 1;
+		letter-spacing: 3%;
+        font-weight: 400;
+        // padding-top: 1.2rem;
+	}
+
+	.info-step-title {
+		font-size: clamp(2rem, 2.5vw, 3.6rem);
+        text-transform: none;
+        letter-spacing: -3%;
+        font-weight: 300;
+        line-height: 1;
+	}
+
+	.info-step-attrs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem;
+		margin-bottom: 1.6rem;
+	}
+
+	.info-step-chip {
+		display: inline-flex;
+		align-items: center;
+		border-radius: 1rem;
+		padding: 0.55rem 1.1rem;
+		font-size: 1.2rem;
+		line-height: 1;
+		color: var(--chip-color);
+		background: var(--chip-bg);
+	}
+
+	.info-step-text {
+		color: var(--steps-text-color);
+		max-width: 64rem;
+	}
+
+	.info-table-panel {
+        z-index: 1;
+		background: $base-2-color;
+		border-radius: 4rem;
+		padding: 4rem;
+		backdrop-filter: blur(0.8rem);
+	}
+
+	.info-table-title {
+		margin-bottom: clamp(3.2rem, 2.778vw, 4rem);
+        color: $contrast-color;
+        text-transform: uppercase;
+	}
+
+	.info-table-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: clamp(.8rem, 1.389vw, 2rem);
+	}
+
+	.info-table-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1.6rem;
+		padding: 1.3rem 1.4rem;
+		background: var(--table-row-bg);
+		border: 0.1rem solid var(--table-row-border);
+		border-radius: 1.2rem;
+	}
+
+	.info-table-label {
+		color: #efefef;
+		font-size: 1.6rem;
+		line-height: 1.2;
+	}
+
+	.info-table-value {
+		color: #d8d8d8;
+		font-size: 1.6rem;
+		line-height: 1.2;
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.info-table-empty {
+		margin: 0;
+		color: var(--steps-text-color);
+	}
+
+    .info-additional-grid {
+        margin-top: clamp(4rem, 5.556vw, 8rem);
+    }
+
+    &.ci-no-bottom-margin { 
+        .info-additional-grid {
+            margin-top: 4rem;
+        }
+    }
+	
+
+	.info-additional-card {
+		height: 100%;
+		background: $base-2-color;
+		border-radius: 4rem;
+		padding: 4rem;
+	}
+
+	.info-additional-card-title {
+		margin-bottom: clamp(2.4rem, 2.222vw, 3.2rem);
+		color: $contrast-color;
+		text-transform: uppercase;
+	}
+
+	.info-additional-card-content {
+		color: var(--steps-text-color);
+
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.info-additional-card-terms {
+		margin: 0;
+		color: var(--steps-text-color);
+		text-transform: uppercase;
+		font-size: 1.8rem;
+		letter-spacing: -0.02em;
+		line-height: 1.8;
+	}
+
+	@media (max-width: 959px) {
+		.info-step-item {
+			grid-template-columns: 3.2rem 1fr;
+			gap: 1.4rem;
+		}
+
+		.info-table-panel {
+			position: static;
+			margin-top: 2rem;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.info-steps-title,
+		.info-table-title {
+			letter-spacing: 0.12em;
+		}
+
+		.info-step-title {
+			font-size: 2.6rem;
+		}
+
+		.info-table-panel {
+			padding: 1.8rem;
+			border-radius: 1.8rem;
+		}
+
+		.info-additional-card {
+			padding: 2.2rem;
+			border-radius: 1.8rem;
+		}
+
+		.info-table-row {
+			padding: 1rem 1.2rem;
+		}
+
+		.info-table-label,
+		.info-table-value {
+			font-size: 1.4rem;
+		}
+
+		.info-additional-card-terms {
+			font-size: 1.4rem;
+		}
+	}
+}

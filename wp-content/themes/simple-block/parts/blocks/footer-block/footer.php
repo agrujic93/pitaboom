@@ -19,7 +19,7 @@ else : /* Rendering in editor body. */
 
 		<div class="footer-top uk-grid uk-grid-large uk-flex-between">
 			<?php if (get_field('footer_logo', 'option') ): ?>
-				<div class="uk-width-auto@l uk-width-1-2@m uk-margin-medium-bottom">
+				<div class="uk-width-expand@l uk-width-1-2@m uk-margin-medium-bottom">
 					<a class="footer-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
 						<img alt="<?php echo get_field('footer_logo', 'option')['alt']; ?>" src="<?php echo get_field('footer_logo', 'option')['sizes']['medium'] ?>">
 					</a>
@@ -72,7 +72,11 @@ else : /* Rendering in editor body. */
 						<div class="social-icons">
 							<?php while( have_rows('social_networks', 'option') ): the_row(); ?>
 								<a target="_blank" rel="noopener" href="<?php echo get_sub_field('url', 'option'); ?>">
-									<img alt="<?php echo get_sub_field('footer_icon', 'option')['alt']; ?>" src="<?php echo get_sub_field('footer_icon', 'option')['url']; ?>">
+									<div class="uk-flex">
+										<img alt="<?php echo get_sub_field('footer_icon', 'option')['alt']; ?>" src="<?php echo get_sub_field('footer_icon', 'option')['url']; ?>">
+										<span><?php echo get_sub_field('label', 'option'); ?></span>
+									</div>
+									
 								</a>
 							<?php endwhile; ?>
 						</div>
@@ -91,7 +95,7 @@ else : /* Rendering in editor body. */
 		</div><!-- footer-top -->
 
 		<div class="site-info">
-			<p style="margin-bottom: 1rem;">Website &copy;<?php echo date('Y'); ?>. All right reserved.</p>
+			<p>&copy;<?php echo date('Y'); ?>. Pita Boom NIS. Sva prava zadržana.</p>
 		</div>
 
 	</div><!-- container -->

@@ -63,8 +63,14 @@
 		position: relative;
 		box-shadow: rgba(0, 0, 0, 0.03) 0px 9px 10px;
 		background: transparent;
+		transition: background 0.3s ease;
 		.container {
 			position: relative;
+		}
+		&.uk-sticky-below.uk-sticky-fixed {
+			// background: rgb(13 13 13 / 80%);
+			// backdrop-filter: blur(0.8rem);
+			background: $base-color;
 		}
 	}
 	.bottom-menu-wrp {
@@ -265,7 +271,7 @@
 					transition: all 0.3s ease;
 				}
 				&:hover {
-					color: $accent-2-color!important;
+					color: $accent-2-color;
 					&:after {
 						width: 100%;
 						background-color: $accent-color;

@@ -7,7 +7,7 @@
 	margin-bottom: 0;
 	padding-bottom: 0 !important;
 	background: linear-gradient(103.89deg, #000000 0%, #2B2B2B 100%)!important;
-	margin-top: -10.7rem!important;
+	margin-top: -15.7rem!important;
 
 	.hero-background-image-wrp {
 		position: relative;
@@ -21,6 +21,8 @@
 		.hero-background-image {
 			position: absolute;
 			width: 110%;
+			height: auto;
+			top: 0;
 			left: -5%;
 			object-fit: cover;
 			object-position: center top;
@@ -39,7 +41,7 @@
 	}
 
 	.hero-content-wrp {
-		padding-top: 9rem;
+		padding-top: 14rem;
 	}
 
 

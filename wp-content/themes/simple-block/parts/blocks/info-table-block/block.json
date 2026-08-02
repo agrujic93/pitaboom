@@ -1,0 +1,23 @@
+{
+    "name": "acf/info-table-block",
+    "title": "Info Table",
+    "description": "A custom Info Table block.",
+    "editorStyle": "file:./template-parts/blocks/editor-style.css",
+    "style": ["file:./info-table-block.css"],
+    "category": "custom-blocks",
+    "icon": "table-col-after",
+    "keywords": ["info", "table", "steps", "product"],
+    "supports": {
+        "align": ["full", "wide"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "anchor": true
+    },
+    "acf": {
+        "mode": "auto",
+        "renderTemplate": "info-table-block.php"
+    },
+    "align": "full"
+}

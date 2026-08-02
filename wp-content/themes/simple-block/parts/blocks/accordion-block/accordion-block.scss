@@ -1,8 +1,7 @@
 @use 'assets/css/sass/custom/theme-variables' as *;
 
 .ci-accordion-block.ci-block {
-	background-color: black;
-	padding: 8rem;
+	// padding: 8rem;
 	--accordion-title-color: #ffffff;
 	--accordion-content-color: #959595;
 	--accordion-divider-color: #424242;
@@ -55,12 +54,23 @@
 		top: 50%;
 		width: 2.1rem;
 		height: 1.3rem;
-		background-image: url('../../../assets/images/accordion-arrow.svg');
-		background-repeat: no-repeat;
-		background-position: center;
-		background-size: contain;
+		background-color: var(--accordion-title-color);
+		-webkit-mask-image: url('../../../assets/images/accordion-arrow.svg');
+		mask-image: url('../../../assets/images/accordion-arrow.svg');
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+		-webkit-mask-size: contain;
+		mask-size: contain;
 		transform: translateY(-50%) rotate(180deg);
-		transition: transform 0.25s ease;
+		transition: transform 0.25s ease, background-color 0.25s ease;
+	}
+
+	.accordion-wrp .uk-accordion > li:hover .uk-accordion-title::after,
+	.accordion-wrp .uk-accordion-title:hover::after,
+	.accordion-wrp .uk-accordion-title:focus-visible::after {
+		background-color: $accent-color;
 	}
 
 	.accordion-wrp li.uk-open .uk-accordion-title::after {

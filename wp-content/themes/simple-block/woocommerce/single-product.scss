@@ -1,0 +1,146 @@
+@use 'assets/css/sass/custom/theme-variables' as *;
+
+.ci-single-product-page {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.ci-product-hero {
+   	
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(103.89deg, #000000 0%, #2b2b2b 100%);
+    padding-bottom: 0!important;
+    margin-bottom: 0!important;
+    margin-top: -15.7rem !important;
+
+	.hero-content-wrp {
+		padding-top: 14rem;
+	}
+
+	.hero-wrp {
+		position: relative;
+		margin-bottom: clamp(4rem, 5.556vw, 8rem);
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+		.animation-fade-item {
+			opacity: 0;
+			&.uk-scrollspy-inview {
+				opacity: 1;
+			}
+		}
+        a {
+            margin-top: auto;
+            margin-left: auto;
+        }
+	}
+
+
+	.ci-product-hero-attributes {
+		display: flex;
+		gap: 2rem;
+		flex-wrap: wrap;
+		margin: 0 0 1.6rem;
+		padding: 0;
+		list-style: none;
+		li {
+			display: inline-flex;
+			gap: 0.6rem;
+			font-size: 1.2rem;
+			line-height: 1;
+			text-transform: uppercase;
+			letter-spacing: -2%;
+			color: $contrast-color;
+		}
+	}
+
+	.ci-product-hero-description {
+		color: $contrast-2-color;
+		> :last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	.ci-product-hero-image-wrp {
+		position: relative;
+		aspect-ratio: 1440/480;
+		width: calc(100% + var(--wp--style--root--padding-left) + var(--wp--style--root--padding-right));
+		margin-left: calc(-1 * var(--wp--style--root--padding-left));
+		overflow: hidden;
+	}
+
+	.ci-product-hero-image {
+		position: absolute;
+		top: 0;
+		left: -5%;
+		display: block;
+		width: 110%;
+		height: auto;
+		object-fit: cover;
+		object-position: center top;
+		max-width: 120%;
+	}
+
+	.ci-product-content-section {
+		padding-top: 7rem;
+		padding-bottom: 7rem;
+	}
+
+	.ci-product-content {
+		max-width: 122rem;
+	}
+}
+
+@keyframes hero-image-slide-up {
+	0% {
+		opacity: 0;
+		transform: translate3d(0, 20rem, 0);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@media (max-width: 1024px) {
+	.ci-product-single {
+		.hero-content-wrp {
+			padding-top: 11rem;
+		}
+
+		.ci-product-hero-header {
+			padding-bottom: 3rem;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.ci-product-single {
+		.hero-content-wrp {
+			padding-top: 9rem;
+		}
+
+		.ci-product-hero-attributes {
+			gap: 1.4rem;
+
+			li {
+				font-size: 1rem;
+			}
+		}
+
+		.ci-product-content-section {
+			padding-top: 5rem;
+			padding-bottom: 5rem;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ci-product-single .ci-product-hero-image-wrp {
+		opacity: 1;
+		transform: none;
+		animation: none;
+	}
+}

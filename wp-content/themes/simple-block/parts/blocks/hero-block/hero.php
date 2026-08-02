@@ -105,7 +105,7 @@ else : /* rendering in editor body */
 				</div>
 			</div>
 			<?php if ( $hero_background_image ) : ?>
-				<div class="hero-background-image-wrp" data-uk-parallax="y: -40px">
+				<div class="hero-background-image-wrp">
 					<?php
 					
 					$image_alt = get_post_meta( $hero_background_image, '_wp_attachment_image_alt', true );
@@ -119,7 +119,8 @@ else : /* rendering in editor body */
 
 						// 2. Build the HTML tag exactly how we want it. No WordPress interference.
 						echo sprintf(
-							'<img  src="%s" data-src="%s" data-srcset="%s" data-sizes="%s" class="hero-background-image lazy-blur" alt="%s" />',
+							'<img data-uk-parallax="%s"  src="%s" data-src="%s" data-srcset="%s" data-sizes="%s" class="hero-background-image lazy-blur" alt="%s" />',
+							"y: 0,-50%",
 							esc_attr( $base64_string ),
 							esc_url( $real_src ),
 							esc_attr( $real_srcset ? $real_srcset : '' ),

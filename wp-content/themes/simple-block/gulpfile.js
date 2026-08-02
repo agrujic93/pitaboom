@@ -32,6 +32,12 @@ function componentsCSS() {
 		.pipe(dest('./components'));
 }
 
+function woocommerceCSS() {
+	return src('./woocommerce/**/*.scss')
+		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
+		.pipe(dest('./woocommerce'));
+}
+
 function animationsCSS() {
 	return src('./assets/css/sass/custom/animations.scss', { sourcemaps: true })
 		.pipe(sass({ style: 'compressed', loadPaths: [path.resolve(__dirname)] }).on('error', sass.logError))
@@ -46,6 +52,7 @@ function watchFiles() {
 	watch('assets/css/sass/custom/_custom-variables.scss', uikitCSS);
 	watch('parts/blocks/**/**.scss', blocksCSS);
 	watch('components/**/**.scss', componentsCSS);
+	watch('woocommerce/**/**.scss', woocommerceCSS);
 	watch('assets/css/sass/custom/animations.scss', animationsCSS);
 }
 
@@ -54,5 +61,6 @@ exports.globalBackCSS = globalBackCSS;
 exports.uikitCSS = uikitCSS;
 exports.blocksCSS = blocksCSS;
 exports.componentsCSS = componentsCSS;
+exports.woocommerceCSS = woocommerceCSS;
 exports.animationsCSS = animationsCSS;
 exports.watch = watchFiles;

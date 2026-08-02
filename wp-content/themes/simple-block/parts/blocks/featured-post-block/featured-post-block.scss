@@ -20,6 +20,7 @@
 	.featured-post-image-wrap {
 		height: 100%;
         overflow: hidden;
+		position: relative;
 	}
 
 	.featured-post-image {
@@ -27,7 +28,7 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-        position: relative;
+        position: absolute;
         &::after {
 			content: ""; /* Required for pseudo-elements to show up */
 			position: absolute;
@@ -61,7 +62,7 @@
 		.featured-post-content {
 			padding: 3.2rem 2.4rem;
 		}
-        .featured-post-image {
+        .featured-post-image-wrap {
             aspect-ratio: 3 / 2;
         }
 	}

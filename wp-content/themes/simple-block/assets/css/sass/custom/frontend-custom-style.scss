@@ -633,18 +633,23 @@ html {
 	}
 	.social-icons {
 		display: flex;
-		align-items: center;
-		gap: 1rem 1.5rem;
+		flex-direction: column;
+		gap: 2rem 2rem;
 		a {
 			display: inline-block;
+			> div {
+				display: flex;
+				align-items: center;
+				gap: .9rem;
+			}
 		}
 		img, svg {
-			height: 2.1rem;
-			max-width: 2.2rem;
+			height: 1.8rem;
+			max-width: 1.8rem;
 			width: auto;
 			@media all and (-ms-high-contrast:none) {
 				height: 100%;
-				max-height: 2rem;
+				max-height: 1.8rem;
 			}
 		}
 	}
@@ -695,14 +700,15 @@ html {
 		.address, .phone, .email {
 			display: block;
 			position: relative;
-			padding-left: 2.5rem;
+			padding-left: 2.7rem;
 			&:before {
 				content: '';
 				position: absolute;
-				width: 1.6rem;
-				height: 2rem;
+				width: 1.8rem;
+				height: 1.8rem;
 				left: 0;
-				top: 0;
+				top: 50%;
+				transform: translateY(-50%);
 				background-position: center center;
 				background-repeat: no-repeat;
 				background-size: contain;

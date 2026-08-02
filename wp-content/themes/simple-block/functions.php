@@ -853,6 +853,53 @@ function simple_block_add_woocommerce_support() {
 
 add_action( 'after_setup_theme', 'simple_block_add_woocommerce_support' );
 
+/**
+ * Prepend custom single product PHP layout to native post-content output.
+ */
+function simple_block_prepend_single_product_template_content( $content ) {
+	if ( is_admin() || ! is_singular( 'product' ) || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	if ( ! function_exists( 'wc_get_template_part' ) ) {
+		return $content;
+	}
+
+	static $single_product_layout_rendered = false;
+
+	if ( $single_product_layout_rendered ) {
+		return $content;
+	}
+
+	$single_product_layout_rendered = true;
+
+	ob_start();
+	wc_get_template_part( 'content', 'single-product' );
+	$custom_layout = (string) ob_get_clean();
+
+	return $custom_layout . $content;
+}
+add_filter( 'the_content', 'simple_block_prepend_single_product_template_content', 9 );
+
+/**
+ * Enqueue custom WooCommerce single product styles.
+ */
+function simple_block_enqueue_woocommerce_single_product_assets() {
+	if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+		return;
+	}
+
+	$single_product_css_path = get_template_directory() . '/woocommerce/single-product.css';
+
+	wp_enqueue_style(
+		'simple-block-woocommerce-single-product',
+		get_template_directory_uri() . '/woocommerce/single-product.css',
+		array(),
+		file_exists( $single_product_css_path ) ? filemtime( $single_product_css_path ) : '1.0.0'
+	);
+}
+add_action( 'wp_enqueue_scripts', 'simple_block_enqueue_woocommerce_single_product_assets' );
+
 
 // ENABLE WORDPRESS EDITOR IN WOOCOMMERCE start
 add_filter( 'use_block_editor_for_post_type', 'activate_gutenberg_product', 10, 2 );
@@ -867,6 +914,32 @@ function enable_taxonomy_rest( $args ) {
     $args['show_in_rest'] = true;
     return $args;
 }
+
+function simple_block_load_info_table_product_taxonomy_choices( $field ) {
+	$field['choices'] = array();
+
+	$taxonomies = get_object_taxonomies( 'product', 'objects' );
+	$excluded_taxonomies = array(
+		'product_type',
+		'product_visibility',
+		'product_shipping_class',
+	);
+
+	foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
+		if ( in_array( $taxonomy_slug, $excluded_taxonomies, true ) ) {
+			continue;
+		}
+
+		if ( empty( $taxonomy->show_ui ) ) {
+			continue;
+		}
+
+		$field['choices'][ $taxonomy_slug ] = $taxonomy->labels->singular_name ?: $taxonomy_slug;
+	}
+
+	return $field;
+}
+add_filter( 'acf/load_field/key=field_6878d23e3241e', 'simple_block_load_info_table_product_taxonomy_choices' );
 // ENABLE WORDPRESS EDITOR IN WOOCOMMERCE end
 
 
